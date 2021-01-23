@@ -1,4 +1,5 @@
 # Rock-Paper-Scissors game for two.
+![Rock-Paper-Scissors Thumbnail](/res/Rock-paper-scissors.svg)  
 Program that plays Rock-Paper-Scissors between the computer and a real player. You can play the game n times before the program exits.
 
 ## Introduction
