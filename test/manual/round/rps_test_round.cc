@@ -12,6 +12,7 @@ namespace rock_paper_scissors {
         PlayerComputer player2("TestComputer");
         Round round(7, player1, player2);
         assert(round.GetId() == 7);
+        assert(round.IsPlayed() == false);
     }
 
     void TestRoundPlay() {
@@ -19,6 +20,7 @@ namespace rock_paper_scissors {
         PlayerComputer player2("TestComputer");
         Round round(7, player1, player2);
         round.Play();
+        assert(round.IsPlayed() == true);
         round.Play();
     }
 

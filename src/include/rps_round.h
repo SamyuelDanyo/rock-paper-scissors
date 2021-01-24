@@ -10,6 +10,7 @@ namespace rock_paper_scissors {
         Round(const int &round_id, PlayerHuman &round_player1,
               PlayerComputer &round_player2);
         int GetId();
+        bool IsPlayed();
         void Play();
         void Review();
 

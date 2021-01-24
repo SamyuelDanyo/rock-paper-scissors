@@ -15,6 +15,9 @@ namespace rock_paper_scissors {
         int
         Round::GetId() {return id_;}
 
+         bool
+         Round::IsPlayed() {return round_played_;}
+
         void
         Round::Play() {
             if(round_played_) {
