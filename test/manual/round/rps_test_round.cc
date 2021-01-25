@@ -10,7 +10,7 @@ namespace rock_paper_scissors {
     void TestRoundBasicFunctionality() {
         PlayerHuman player1("TestHuman");
         PlayerComputer player2("TestComputer");
-        Round round(7, player1, player2);
+        Round<> round(7, player1, player2);
         assert(round.GetId() == 7);
         assert(round.IsPlayed() == false);
     }
@@ -18,7 +18,7 @@ namespace rock_paper_scissors {
     void TestRoundPlay() {
         PlayerHuman player1("TestHuman");
         PlayerComputer player2("TestComputer");
-        Round round(7, player1, player2);
+        Round<> round(7, player1, player2);
         round.Play();
         assert(round.IsPlayed() == true);
         round.Play();
@@ -27,7 +27,7 @@ namespace rock_paper_scissors {
     void TestRoundReview() {
         PlayerHuman player1("TestHuman");
         PlayerComputer player2("TestComputer");
-        Round round(7, player1, player2);
+        Round<> round(7, player1, player2);
         round.Review();
         round.Play();
         round.Review();
