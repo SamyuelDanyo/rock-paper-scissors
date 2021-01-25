@@ -20,6 +20,9 @@ int main() {
         game.Play();
         game.Review();
         rock_paper_scissors::Print({"Would you like to play another game?(y/n)"});
+        if(std::cin.fail()) {
+            break;
+        }
         std::cin >> play_another_game;
     } while(play_another_game == 'y');
     return 0;

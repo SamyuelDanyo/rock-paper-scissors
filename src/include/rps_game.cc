@@ -47,13 +47,24 @@ namespace rock_paper_scissors {
             Print({"This round has already been played!"});
             return false;
         }
-        bool not_last_round = round.GetId() < (int)game_rounds_.size();
+        bool not_last_round = round.GetId() < static_cast<int>(game_rounds_.size());
+        int difference_in_wins {player1_.GetWins() - player2_.GetWins()};
+        int rounds_left {static_cast<int>(game_rounds_.size() - round.GetId())};
         if(not_last_round) {
-            if( (player1_.GetWins() - player2_.GetWins()) > ((int)game_rounds_.size() - round.GetId()) ) {
+            if(difference_in_wins > rounds_left) {
                 Print({player1_.GetName(), " achieves early victory!"});
                 return true;
             }
-            if( (player2_.GetWins() - player1_.GetWins()) > (int)(game_rounds_.size() - round.GetId()) ) {
+            if(-difference_in_wins > rounds_left) {
+                Print({player2_.GetName(), " achieves early victory!"});
+                return true;
+            }
+        } else {
+            if(difference_in_wins > 1) {
+                Print({player1_.GetName(), " achieves early victory!"});
+                return true;
+            }
+            if(-difference_in_wins > 1) {
                 Print({player2_.GetName(), " achieves early victory!"});
                 return true;
             }
@@ -91,7 +102,7 @@ namespace rock_paper_scissors {
             if (user_choice == 'y') {
                 game_rounds_.push_back(
                     Round<Player1T, Player2T>(game_rounds_.back().GetId()+1, player1_, player2_));
-                game_rounds_.back().Play();
+                PlayRound(game_rounds_.back());
             } else {
                 break;
             }
