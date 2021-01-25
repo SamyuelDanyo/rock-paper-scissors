@@ -9,19 +9,22 @@
 #include "rps_player_computer.h"
 
 namespace rock_paper_scissors {
+    template<class Player1T=rock_paper_scissors::PlayerHuman, class Player2T=rock_paper_scissors::PlayerComputer>
     class Game {
       public:
-        Game(std::string &player1_name, int &number_of_rounds);
-        std::vector<Round>& GetRounds();
-        bool CheckEarlyVictory(Round &round);
-        void PlayRound(Round &round);
+        Game(int &number_of_rounds);
+        Game(int &number_of_rounds, std::string &player1_name);
+        Game(int &number_of_rounds, std::string &player1_name, std::string &player2_name);
+        std::vector<Round<Player1T, Player2T>>& GetRounds();
+        bool CheckEarlyVictory(Round<Player1T, Player2T> &round);
+        void PlayRound(Round<Player1T, Player2T> &round);
         void Play();
         void Review();
 
       private:
-        std::vector<Round> game_rounds_;
-        PlayerHuman player1_;
-        PlayerComputer player2_;
+        std::vector<Round<Player1T, Player2T>> game_rounds_;
+        Player1T player1_;
+        Player2T player2_;
     };
 }
 #endif // RPS_GAME_H

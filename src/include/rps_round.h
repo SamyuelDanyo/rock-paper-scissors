@@ -5,10 +5,10 @@
 #include "rps_player_human.h"
 
 namespace rock_paper_scissors {
+    template<class Player1T=PlayerHuman, class Player2T=PlayerComputer>
     class Round {
       public:
-        Round(const int &round_id, PlayerHuman &round_player1,
-              PlayerComputer &round_player2);
+        Round(const int &round_id, Player1T &round_player1, Player2T &round_player2);
         int GetId();
         bool IsPlayed();
         void Play();
@@ -17,8 +17,8 @@ namespace rock_paper_scissors {
       private:
         const int id_;
         bool round_played_ {false};
-        PlayerHuman &player1_;
-        PlayerComputer &player2_;
+        Player1T &player1_;
+        Player2T &player2_;
         std::string symbol_player1_;
         std::string symbol_player2_;
         std::shared_ptr<Player> winner_;

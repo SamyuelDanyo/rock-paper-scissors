@@ -5,18 +5,44 @@
 #include "rps_util.h"
 
 namespace rock_paper_scissors {
-    Game::Game(std::string &player1_name, int &number_of_rounds) :
-        player1_(player1_name), player2_() {
+    template<class Player1T, class Player2T>
+    Game<Player1T, Player2T>::Game(int &number_of_rounds
+    ) :
+        player1_(), player2_()
+    {
         for(int i=0; i<number_of_rounds; ++i) {
-            game_rounds_.push_back(Round(i+1, player1_, player2_));
+            game_rounds_.push_back(Round<Player1T, Player2T>(i+1, player1_, player2_));
+        }
+    }
+    template<class Player1T, class Player2T>
+    Game<Player1T, Player2T>::Game(int &number_of_rounds,
+                                   std::string &player1_name
+    ) :
+        player1_(player1_name), player2_()
+    {
+        for(int i=0; i<number_of_rounds; ++i) {
+            game_rounds_.push_back(Round<Player1T, Player2T>(i+1, player1_, player2_));
+        }
+    }
+    template<class Player1T, class Player2T>
+    Game<Player1T, Player2T>::Game(int &number_of_rounds,
+                                   std::string &player1_name,
+                                   std::string &player2_name
+    ) :
+        player1_(player1_name), player2_(player2_name)
+    {
+        for(int i=0; i<number_of_rounds; ++i) {
+            game_rounds_.push_back(Round<Player1T, Player2T>(i+1, player1_, player2_));
         }
     }
 
-    std::vector<Round>&
-    Game::GetRounds() {return game_rounds_;}
+    template<class Player1T, class Player2T>
+    std::vector<Round<Player1T, Player2T>>&
+    Game<Player1T, Player2T>::GetRounds() {return game_rounds_;}
 
+    template<class Player1T, class Player2T>
     bool
-    Game::CheckEarlyVictory(Round &round) {
+    Game<Player1T, Player2T>::CheckEarlyVictory(Round<Player1T, Player2T> &round) {
         if(round.IsPlayed()) {
             Print({"This round has already been played!"});
             return false;
@@ -35,19 +61,22 @@ namespace rock_paper_scissors {
         return false;
     }
 
+    template<class Player1T, class Player2T>
     void
-    Game::PlayRound(Round &round) {
+    Game<Player1T, Player2T>::PlayRound(Round<Player1T, Player2T> &round) {
         round.Play();
         round.Review();
     }
 
+    template<class Player1T, class Player2T>
     void
-    Game::Play() {
+    Game<Player1T, Player2T>::Play() {
         if(game_rounds_.size() == 0) {
             Print({"There are 0 rounds in this game. No winners today!"});
             return;
         }
         Print({"\n", "### New Game Starts! ###"});
+        Print({player1_.GetName(), " vs ", player2_.GetName(), "\n"});
         for(auto &round : game_rounds_) {
             if(CheckEarlyVictory(round)) {
                 break;
@@ -60,7 +89,8 @@ namespace rock_paper_scissors {
             char user_choice;
             std::cin >> user_choice;
             if (user_choice == 'y') {
-                game_rounds_.push_back(Round(game_rounds_.back().GetId()+1, player1_, player2_));
+                game_rounds_.push_back(
+                    Round<Player1T, Player2T>(game_rounds_.back().GetId()+1, player1_, player2_));
                 game_rounds_.back().Play();
             } else {
                 break;
@@ -68,8 +98,9 @@ namespace rock_paper_scissors {
         }
     }
 
+    template<class Player1T, class Player2T>
     void
-    Game::Review() {
+    Game<Player1T, Player2T>::Review() {
         Print({"\n", "### Game Review ###"});
         Print({player1_.GetName(), " round wins: ", std::to_string(player1_.GetWins()), " | ",
                player2_.GetName(), " round wins: ", std::to_string(player2_.GetWins())});
@@ -82,4 +113,9 @@ namespace rock_paper_scissors {
         }
         
     }
+
+    template class Game<PlayerHuman, PlayerComputer>;
+    template class Game<PlayerHuman, PlayerHuman>;
+    template class Game<PlayerComputer, PlayerHuman>;
+    template class Game<PlayerComputer, PlayerComputer>;
 }

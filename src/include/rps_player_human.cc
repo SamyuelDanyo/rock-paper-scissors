@@ -9,7 +9,7 @@
 
 namespace rock_paper_scissors {
     PlayerHuman::PlayerHuman() :
-        Player("Sam") {}
+        Player("Human") {}
 
     PlayerHuman::PlayerHuman(const std::string &player_name) :
         Player(player_name) {}
