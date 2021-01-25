@@ -34,9 +34,13 @@ __Make sure to:__
 
 ## Design
 
-The process of picking a symbol is intentionally concurrent and un-synchonised since that is the closest behavior to what happens in-person. Sometimes one of the players is slightly ahead, sometimes the other but they are never perfectly synchonised in neither saying rock-paper-scissors nor in showing their symbols.
+The Game and Round classes are templated to allow easy game-making for humans or computers.
+The project supports extensibility through OOP and templates - in order to facilitate readability template classes' definitions and implementations are separated in a <.h> and <.cc> files.  
+__If new <Player> types are added - make sure to add explicit instantiations in the <.cc> file!__
 
-For choosing symbols PlayerComputer uses a random numebr generator, which is seeded via <std::chrono::high_resolution_clock>. That was picked over <std::random_device()>, since the latter is implemented as PRNG and hence that leads to the computer always following the same sequence.
+The process of picking a symbol is intentionally concurrent and unsynchronized since that is the closest behavior to what happens in-person. Sometimes one of the players is slightly ahead, sometimes the other, but they are never perfectly synchronized in neither saying rock-paper-scissors nor in showing their symbols.
+
+For choosing symbols PlayerComputer uses a random number generator, which is seeded via <std::chrono::high_resolution_clock>. That was picked over <std::random_device()>, since the latter is implemented as PRNG and hence that leads to the computer always following the same sequence.
 
 ### Style
 
